@@ -43,8 +43,7 @@ export const auth = betterAuth({
         requireEmailVerification: true,
     },
     emailVerification: {
-
-		sendOnSignUp: true,
+        sendOnSignUp: true,
 
         sendVerificationEmail: async ({ user, url, token }, request) => {
             try {
@@ -173,6 +172,12 @@ export const auth = betterAuth({
                 console.error(error);
                 throw error;
             }
+        },
+    },
+    socialProviders: {
+        google: {
+            clientId: process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         },
     },
 });
