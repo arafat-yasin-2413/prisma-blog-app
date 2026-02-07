@@ -10,7 +10,7 @@ const getAllPost = async ({
 }: {
     search: string | undefined;
     tags: string[] | [];
-    isFeatures: boolean;
+    isFeatures: boolean | undefined;
 }) => {
     const andConditions: PostWhereInput[] = [];
 

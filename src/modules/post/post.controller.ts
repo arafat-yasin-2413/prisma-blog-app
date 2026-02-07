@@ -1,49 +1,51 @@
 import { Request, Response } from "express";
 import { postService } from "./post.service";
 
-const getAllPost = async(req: Request, res: Response) =>{
-    try{
+const getAllPost = async (req: Request, res: Response) => {
+    try {
         const { search } = req.query;
-        const searchString = typeof search === 'string' ? search : undefined; 
+        const searchString = typeof search === "string" ? search : undefined;
 
         const tags = req.query.tags ? (req.query.tags as string).split(",") : [];
 
-        const isFeatures = req.query.isFeatures ? req.query.isFeatures === 'true': false
+        const isFeatures = req.query.isFeatures
+            ? req.query.isFeatures === "true"
+                ? true
+                : req.query.isFeatures === "false"
+                  ? false
+                  : undefined
+            : undefined;
 
         const result = await postService.getAllPost({ search: searchString, tags, isFeatures });
-        return res.status(200).json(result)
-    }
-    catch(error) {
+        return res.status(200).json(result);
+    } catch (error) {
         res.status(500).json({
             error: "Get All Post Failed!",
-            details: error
-        })
+            details: error,
+        });
     }
-}
-
+};
 
 const createPost = async (req: Request, res: Response) => {
-
-    try{
+    try {
         const user = req.user;
         // console.log(req.user)
-        if(!user) {
+        if (!user) {
             return res.status(401).json({
                 error: "Unauthorized!",
-            })
+            });
         }
-        const result = await postService.createPost(req.body, user.id as string)
-        res.status(201).json(result) 
-    }
-    catch(e){
+        const result = await postService.createPost(req.body, user.id as string);
+        res.status(201).json(result);
+    } catch (e) {
         res.send(401).json({
-            error : "Post creation failed",
-            details : e
-        })
+            error: "Post creation failed",
+            details: e,
+        });
     }
 };
 
 export const PostController = {
     createPost,
-    getAllPost
+    getAllPost,
 };
