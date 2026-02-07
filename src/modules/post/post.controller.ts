@@ -1,6 +1,20 @@
 import { Request, Response } from "express";
 import { postService } from "./post.service";
 
+const getAllPost = async(req: Request, res: Response) =>{
+    try{
+        const result = await postService.getAllPost();
+        return res.status(200).json(result)
+    }
+    catch(error) {
+        res.status(500).json({
+            error: "Get All Post Failed!",
+            details: error
+        })
+    }
+}
+
+
 const createPost = async (req: Request, res: Response) => {
 
     try{
@@ -24,4 +38,5 @@ const createPost = async (req: Request, res: Response) => {
 
 export const PostController = {
     createPost,
+    getAllPost
 };
