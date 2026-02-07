@@ -16,7 +16,11 @@ const getAllPost = async (req: Request, res: Response) => {
                   : undefined
             : undefined;
 
-        const result = await postService.getAllPost({ search: searchString, tags, isFeatures });
+        const status = req.query.status as PostStatus | undefined;
+
+        const authorId = req.query.authorId as string | undefined;
+
+        const result = await postService.getAllPost({ search: searchString, tags, isFeatures, status, authorId });
         return res.status(200).json(result);
     } catch (error) {
         res.status(500).json({
