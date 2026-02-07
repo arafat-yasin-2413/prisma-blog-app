@@ -3,8 +3,16 @@ import { Post } from "../../../generated/prisma/client";
 import { PostWhereInput } from "../../../generated/prisma/models";
 import { prisma } from "../../lib/prisma";
 
-const getAllPost = async ({ search, tags }: { search: string | undefined; tags: string[] | [] }) => {
-    const andConditions:PostWhereInput[] = [];
+const getAllPost = async ({
+    search,
+    tags,
+    isFeatures,
+}: {
+    search: string | undefined;
+    tags: string[] | [];
+    isFeatures: boolean;
+}) => {
+    const andConditions: PostWhereInput[] = [];
 
     if (search) {
         andConditions.push({
@@ -35,13 +43,19 @@ const getAllPost = async ({ search, tags }: { search: string | undefined; tags: 
         andConditions.push({
             tags: {
                 hasEvery: tags as string[],
-            },
-        });
+            }
+        })
+    }
+
+    if(typeof isFeatures === 'boolean') {
+        andConditions.push({
+            isFeatures
+        })
     }
 
     const result = await prisma.post.findMany({
         where: {
-            AND: andConditions
+            AND: andConditions,
         },
     });
     return result;
