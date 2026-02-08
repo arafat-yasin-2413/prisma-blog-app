@@ -1,6 +1,5 @@
-// import { Post } from "../../../generated/prisma/client";
-import { Post } from "../../../generated/prisma/client";
-import { PostWhereInput } from "../../../generated/prisma/models";
+import { Post, PostStatus } from "../../generated/prisma/client";
+import { PostWhereInput } from "../../generated/prisma/models";
 import { prisma } from "../../lib/prisma";
 
 const getAllPost = async ({
