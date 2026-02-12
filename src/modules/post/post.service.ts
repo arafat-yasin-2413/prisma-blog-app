@@ -6,18 +6,24 @@ const getAllPost = async ({
     search,
     tags,
     isFeatures,
-    status, 
+    status,
     authorId,
     page,
-    limit
+    limit,
+    skip,
+    sortBy,
+    sortOrder,
 }: {
-    search: string | undefined,
-    tags: string[] | [],
-    isFeatures: boolean | undefined,
-    status: PostStatus | undefined, 
-    authorId: string | undefined,
-    page: number,
-    limit: number
+    search: string | undefined;
+    tags: string[] | [];
+    isFeatures: boolean | undefined;
+    status: PostStatus | undefined;
+    authorId: string | undefined;
+    page: number;
+    limit: number;
+    skip: number;
+    sortBy: string;
+    sortOrder: string;
 }) => {
     const andConditions: PostWhereInput[] = [];
 
@@ -50,33 +56,37 @@ const getAllPost = async ({
         andConditions.push({
             tags: {
                 hasEvery: tags as string[],
-            }
-        })
+            },
+        });
     }
 
-    if(typeof isFeatures === 'boolean') {
+    if (typeof isFeatures === "boolean") {
         andConditions.push({
-            isFeatures
-        })
+            isFeatures,
+        });
     }
 
-    if(status) {
+    if (status) {
         andConditions.push({
-            status
-        })
+            status,
+        });
     }
 
-    if(authorId) {
+    if (authorId) {
         andConditions.push({
-            authorId
-        })
+            authorId,
+        });
     }
-    
 
     const result = await prisma.post.findMany({
+        take: limit,
+        skip,
         where: {
             AND: andConditions,
         },
+        orderBy:  {
+            [sortBy]: sortOrder 
+        }
     });
     return result;
 };
