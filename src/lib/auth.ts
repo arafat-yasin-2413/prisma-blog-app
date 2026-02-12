@@ -44,7 +44,7 @@ export const auth = betterAuth({
     },
     emailVerification: {
         sendOnSignUp: true,
-		autoSignInAfterVerification: true,
+        autoSignInAfterVerification: true,
 
         sendVerificationEmail: async ({ user, url, token }, request) => {
             try {
@@ -58,114 +58,114 @@ export const auth = betterAuth({
                     subject: "Please verify your email",
                     // text: "Hello world?", // Plain-text version of the message
                     html: `
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                  <meta charset="UTF-8" />
-                  <title>Email Verification</title>
-                  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                  <style>
-                    body {
-                      margin: 0;
-                      padding: 0;
-                      background-color: #f4f6f8;
-                      font-family: Arial, Helvetica, sans-serif;
-                    }
-                    .container {
-                      max-width: 600px;
-                      margin: 40px auto;
-                      background-color: #ffffff;
-                      border-radius: 8px;
-                      overflow: hidden;
-                      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-                    }
-                    .header {
-                      background-color: #4f46e5;
-                      color: #ffffff;
-                      padding: 20px;
-                      text-align: center;
-                    }
-                    .content {
-                      padding: 30px;
-                      color: #333333;
-                      line-height: 1.6;
-                    }
-                    .button-wrapper {
-                      text-align: center;
-                      margin: 30px 0;
-                    }
-                    .verify-button {
-                      background-color: #4f46e5;
-                      color: #ffffff;
-                      padding: 14px 28px;
-                      text-decoration: none;
-                      border-radius: 6px;
-                      font-weight: bold;
-                      display: inline-block;
-                    }
-                    .verify-button:hover {
-                      background-color: #4338ca;
-                    }
-                    .footer {
-                      padding: 20px;
-                      font-size: 12px;
-                      color: #777777;
-                      text-align: center;
-                      background-color: #fafafa;
-                    }
-                    .link {
-                      word-break: break-all;
-                      color: #4f46e5;
-                    }
-                  </style>
-                </head>
-                <body>
-
-                  <div class="container">
-                    <div class="header">
-                      <h1>Prisma Blog</h1>
-                    </div>
-
-                    <div class="content">
-                      <p>Hello ${user.name}</p>
-
-                      <p>
-                        Thanks for signing up for <strong>Prisma Blog</strong>!  
-                        Please confirm your email address by clicking the button below.
-                      </p>
-
-                      <div class="button-wrapper">
-                        <a href="${verificationUrl}" class="verify-button">
-                          Verify Email
-                        </a>
-                      </div>
-
-                      <p>
-                        If the button doesn’t work, copy and paste this link into your browser:
-                      </p>
-
-                      <p class="link">
-                        ${url}
-                      </p>
-
-                      <p>
-                        This link will expire in 24 hours.  
-                        If you didn’t create an account, you can safely ignore this email.
-                      </p>
-
-                      <p>
-                        — Prisma Blog Team
-                      </p>
-                    </div>
-
-                    <div class="footer">
-                      © 2026 Prisma Blog. All rights reserved.
-                    </div>
-                  </div>
-
-                </body>
-                </html>
-                `,
+                		<!DOCTYPE html>
+                		<html lang="en">
+                		<head>
+                		  <meta charset="UTF-8" />
+                		  <title>Email Verification</title>
+                		  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                		  <style>
+                		    body {
+                		      margin: 0;
+                		      padding: 0;
+                		      background-color: #f4f6f8;
+                		      font-family: Arial, Helvetica, sans-serif;
+                		    }
+                		    .container {
+                		      max-width: 600px;
+                		      margin: 40px auto;
+                		      background-color: #ffffff;
+                		      border-radius: 8px;
+                		      overflow: hidden;
+                		      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                		    }
+                		    .header {
+                		      background-color: #4f46e5;
+                		      color: #ffffff;
+                		      padding: 20px;
+                		      text-align: center;
+                		    }
+                		    .content {
+                		      padding: 30px;
+                		      color: #333333;
+                		      line-height: 1.6;
+                		    }
+                		    .button-wrapper {
+                		      text-align: center;
+                		      margin: 30px 0;
+                		    }
+                		    .verify-button {
+                		      background-color: #4f46e5;
+                		      color: #ffffff;
+                		      padding: 14px 28px;
+                		      text-decoration: none;
+                		      border-radius: 6px;
+                		      font-weight: bold;
+                		      display: inline-block;
+                		    }
+                		    .verify-button:hover {
+                		      background-color: #4338ca;
+                		    }
+                		    .footer {
+                		      padding: 20px;
+                		      font-size: 12px;
+                		      color: #777777;
+                		      text-align: center;
+                		      background-color: #fafafa;
+                		    }
+                		    .link {
+                		      word-break: break-all;
+                		      color: #4f46e5;
+                		    }
+                		  </style>
+                		</head>
+                		<body>
+						
+                		  <div class="container">
+                		    <div class="header">
+                		      <h1>Prisma Blog</h1>
+                		    </div>
+						
+                		    <div class="content">
+                		      <p>Hello ${user.name}</p>
+						
+                		      <p>
+                		        Thanks for signing up for <strong>Prisma Blog</strong>!  
+                		        Please confirm your email address by clicking the button below.
+                		      </p>
+						
+                		      <div class="button-wrapper">
+                		        <a href="${verificationUrl}" class="verify-button">
+                		          Verify Email
+                		        </a>
+                		      </div>
+						
+                		      <p>
+                		        If the button doesn’t work, copy and paste this link into your browser:
+                		      </p>
+						
+                		      <p class="link">
+                		        ${url}
+                		      </p>
+						
+                		      <p>
+                		        This link will expire in 24 hours.  
+                		        If you didn’t create an account, you can safely ignore this email.
+                		      </p>
+						
+                		      <p>
+                		        — Prisma Blog Team
+                		      </p>
+                		    </div>
+						
+                		    <div class="footer">
+                		      © 2026 Prisma Blog. All rights reserved.
+                		    </div>
+                		  </div>
+						
+                		</body>
+                		</html>
+                		`,
                 });
 
                 console.log("Message sent:", info.messageId);
@@ -177,8 +177,8 @@ export const auth = betterAuth({
     },
     socialProviders: {
         google: {
-			prompt: "select_account consent",
-			accessType: "offline",
+            prompt: "select_account consent",
+            accessType: "offline",
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         },

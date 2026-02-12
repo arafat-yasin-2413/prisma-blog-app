@@ -37,7 +37,7 @@ const auth = (...roles: UserRole[]) => {
             }
 
             if (!session.user.emailVerified) {
-                res.status(403).json({
+                return res.status(403).json({
                     success: false,
                     message: "Email verification required. Please verify your email",
                 });
