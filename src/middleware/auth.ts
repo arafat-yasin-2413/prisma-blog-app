@@ -51,7 +51,7 @@ const auth = (...roles: UserRole[]) => {
                 emailVerified: session.user.emailVerified,
             };
 
-            console.log(session);
+            // console.log(session);
 
             if (roles.length && !roles.includes(req.user.role as UserRole)) {
                 return res.status(403).json({
