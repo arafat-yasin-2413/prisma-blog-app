@@ -56,7 +56,7 @@ const createComment = async (payload: { content: string; authorId: string; postI
 };
 
 const deleteComment = async(commentId: string, authorId: string) =>{
-    console.log({commentId, authorId})
+    // console.log({commentId, authorId})
     const commentData = await prisma.comment.findFirst({
         where: {
             id: commentId,
