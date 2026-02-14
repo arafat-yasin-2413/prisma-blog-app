@@ -77,8 +77,10 @@ const moderateComment = async (req: Request, res: Response) => {
         res.status(200).json(result);
         
     } catch (e) {
+        // console.log(e)
+        const errorMessage = (e instanceof Error) ? e.message : "Comment Moderation Failed!"
         res.status(400).json({
-            error: "Comment Moderation Failed",
+            error: errorMessage,
             details: e,
         });
     }
