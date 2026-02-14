@@ -7,7 +7,8 @@ const router = express.Router();
 
 router.get("/author/:authorId", commentControllers.getCommentByAuthor);
 router.get("/:commentId", commentControllers.getCommentById);
-router.delete("/:commentId", auth(UserRole.USER, UserRole.ADMIN), commentControllers.deleteComment);
 router.post("/", auth(UserRole.USER, UserRole.ADMIN), commentControllers.createComment);
+router.patch("/:commentId", auth(UserRole.USER, UserRole.ADMIN), commentControllers.updateComment);
+router.delete("/:commentId", auth(UserRole.USER, UserRole.ADMIN), commentControllers.deleteComment);
 
-export const commentRouter:Router = router;
+export const commentRouter: Router = router;
