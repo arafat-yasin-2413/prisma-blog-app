@@ -66,47 +66,66 @@ const createPost = async (req: Request, res: Response) => {
     }
 };
 
-const getPostById = async (req:Request, res:Response) =>{
-    try{
+const getPostById = async (req: Request, res: Response) => {
+    try {
         const { postId } = req.params;
 
-        if(!postId) {
+        if (!postId) {
             throw new Error("Post Id is Required!");
         }
 
         const result = await postService.getPostById(postId as string);
         res.status(200).json(result);
-    }
-    catch(error){
+    } catch (error) {
         res.status(400).json({
             error: "Get post by id failed",
-            details: error
-        })
+            details: error,
+        });
     }
-}
+};
 
-const getMyPosts = async(req:Request, res:Response) =>{
-    try{
+const getMyPosts = async (req: Request, res: Response) => {
+    try {
         const user = req.user;
-        if(!user) {
+        if (!user) {
             throw new Error("You are  unauthorized");
         }
         // console.log(user);
         const result = await postService.getMyPosts(user.id);
         res.status(200).json(result);
-    }
-    catch(e) {
-        console.log(e)
+    } catch (e) {
+        console.log(e);
         res.status(400).json({
             error: "Post fetch failed",
-            details: e
-        })
+            details: e,
+        });
     }
-}
+};
+
+const updatePost = async (req: Request, res: Response) => {
+    try {
+        const user = req.user;
+        if (!user) {
+            throw new Error("You are  unauthorized");
+        }
+        // console.log(user);
+        const { postId } = req.params;
+        const result = await postService.updatePost(postId as string, req.body, user.id);
+        res.status(200).json(result);
+    } catch (e) {
+        // console.log(e)
+        const errorMessage = (e instanceof Error) ? e.message : "Post Update Failed!"
+        res.status(400).json({
+            error: errorMessage,
+            details: e,
+        });
+    }
+};
 
 export const postController = {
     createPost,
     getAllPost,
     getPostById,
-    getMyPosts
+    getMyPosts,
+    updatePost
 };
