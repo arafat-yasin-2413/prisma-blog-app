@@ -5,7 +5,7 @@ import { prisma } from "../../lib/prisma";
 const getAllPost = async ({
     search,
     tags,
-    isFeatures,
+    isFeatured,
     status,
     authorId,
     page,
@@ -16,7 +16,7 @@ const getAllPost = async ({
 }: {
     search: string | undefined;
     tags: string[] | [];
-    isFeatures: boolean | undefined;
+    isFeatured: boolean | undefined;
     status: PostStatus | undefined;
     authorId: string | undefined;
     page: number;
@@ -60,9 +60,9 @@ const getAllPost = async ({
         });
     }
 
-    if (typeof isFeatures === "boolean") {
+    if (typeof isFeatured === "boolean") {
         andConditions.push({
-            isFeatures,
+            isFeatured,
         });
     }
 
@@ -214,7 +214,11 @@ const getMyPosts = async (authorId: string) => {
     return result;
 };
 
-const updatePost = async (postId: string, data: Partial<Post>, authorId: string) => {
+
+// user - shudhu nijer post update korte parbe. isFeatured field update korte parbee na
+// admin - sobar post e update korte parbe.
+
+const updatePost = async (postId: string, data: Partial<Post>, authorId: string, isAdmin:boolean) => {
     // console.log({ postId, data, authorId });
 
     const postData = await prisma.post.findUniqueOrThrow({
@@ -227,9 +231,14 @@ const updatePost = async (postId: string, data: Partial<Post>, authorId: string)
         }
     });
 
-    if(postData.authorId !== authorId) {
+    if(!isAdmin && (postData.authorId !== authorId)) {
         throw new Error("You are not the owner/creator of this post")
     } 
+
+    if(!isAdmin) {
+        delete data.isFeatured
+        throw new Error(`An User Can't Update isFeatured field!`)
+    }
 
     const result = await prisma.post.update({
         where: {

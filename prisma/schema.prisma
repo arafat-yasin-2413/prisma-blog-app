@@ -18,7 +18,7 @@ model Post {
   title      String     @db.VarChar(225)
   content    String     @db.Text
   thumbnain  String?
-  isFeatures Boolean    @default(false)
+  isFeatured Boolean    @default(false)
   status     PostStatus @default(PUBLISHED)
   tags       String[]
   views      Int        @default(0)
