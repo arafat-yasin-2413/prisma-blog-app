@@ -58,7 +58,7 @@ enum PostStatus {
 
 enum CommentStatus {
   APPROVED
-  REJECTED
+  REJECT
 }
 
 model User {
