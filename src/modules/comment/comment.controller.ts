@@ -1,6 +1,20 @@
 import { Request, Response } from "express";
 import { commentServices } from "./comment.service";
 
+const getCommentById = async (req: Request, res: Response) => {
+    try {
+        const { commentId } = req.params
+        const result = await commentServices.getCommentById (commentId as string);
+        res.status(200).json(result);
+    
+    } catch (e) {
+        res.status(400).json({
+            error: "Getting Comment By Id Failed",
+            details: e,
+        });
+    }
+};
+
 
 const createComment = async (req: Request, res: Response) => {
     try {
@@ -17,6 +31,11 @@ const createComment = async (req: Request, res: Response) => {
     }
 };
 
+
+
+
+
 export const commentControllers = {
-    createComment
+    createComment,
+    getCommentById
 }
