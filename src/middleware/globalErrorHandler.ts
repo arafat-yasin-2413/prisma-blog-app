@@ -35,6 +35,18 @@ function errorHandler(err: any, req: Request, res: Response, next: NextFunction)
         errorMessage = "Error occured during query execution";
     }
 
+    else if(err instanceof Prisma.PrismaClientInitializationError) {
+        if(err.errorCode === "P1000") {
+            statusCode = 401;
+            errorMessage = "Authentication failed. Please check your credentials."
+        }
+
+        else if(err.errorCode === "P1001") {
+            statusCode = 400;
+            errorMessage = "Can't reach database server";
+        }
+    }
+
     res.status(statusCode)
     res.json({
         message: errorMessage,
