@@ -61,7 +61,6 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
         res.status(201).json(result);
     } catch (e) {
         next(e);
-    
     }
 };
 
@@ -101,7 +100,7 @@ const getMyPosts = async (req: Request, res: Response) => {
     }
 };
 
-const updatePost = async (req: Request, res: Response) => {
+const updatePost = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user = req.user;
         if (!user) {
@@ -109,23 +108,17 @@ const updatePost = async (req: Request, res: Response) => {
         }
         // console.log(user);
         const { postId } = req.params;
-        
-        const isAdmin = user.role === UserRole.ADMIN
+
+        const isAdmin = user.role === UserRole.ADMIN;
 
         console.log(user);
 
         const result = await postService.updatePost(postId as string, req.body, user.id, isAdmin);
         res.status(200).json(result);
     } catch (e) {
-        // console.log(e)
-        const errorMessage = (e instanceof Error) ? e.message : "Post Update Failed!"
-        res.status(400).json({
-            error: errorMessage,
-            details: e,
-        });
+        next(e);
     }
 };
-
 
 const deletePost = async (req: Request, res: Response) => {
     try {
@@ -135,8 +128,8 @@ const deletePost = async (req: Request, res: Response) => {
         }
         // console.log(user);
         const { postId } = req.params;
-        
-        const isAdmin = user.role === UserRole.ADMIN
+
+        const isAdmin = user.role === UserRole.ADMIN;
 
         console.log(user);
 
@@ -144,7 +137,7 @@ const deletePost = async (req: Request, res: Response) => {
         res.status(200).json(result);
     } catch (e) {
         // console.log(e)
-        const errorMessage = (e instanceof Error) ? e.message : "Post Delete Failed!"
+        const errorMessage = e instanceof Error ? e.message : "Post Delete Failed!";
         res.status(400).json({
             error: errorMessage,
             details: e,
@@ -152,20 +145,18 @@ const deletePost = async (req: Request, res: Response) => {
     }
 };
 
-
-const getStats = async(req: Request, res:Response) =>{
-    try{
+const getStats = async (req: Request, res: Response) => {
+    try {
         const result = await postService.getStats();
         res.status(200).json(result);
-    }
-    catch(e) {
-        const errorMessage = (e instanceof Error) ? e.message : "Stats Fetching Failed!";
+    } catch (e) {
+        const errorMessage = e instanceof Error ? e.message : "Stats Fetching Failed!";
         res.status(400).json({
             error: errorMessage,
-            details: e
-        })
+            details: e,
+        });
     }
-}
+};
 
 export const postController = {
     createPost,
@@ -174,5 +165,5 @@ export const postController = {
     getMyPosts,
     updatePost,
     deletePost,
-    getStats
+    getStats,
 };
