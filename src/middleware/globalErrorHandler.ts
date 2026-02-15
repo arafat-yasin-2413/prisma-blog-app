@@ -29,6 +29,12 @@ function errorHandler(err: any, req: Request, res: Response, next: NextFunction)
         }
     }
 
+    // PrismaClientUnknownRequestError
+    else if(err instanceof Prisma.PrismaClientUnknownRequestError) {
+        statusCode = 500;
+        errorMessage = "Error occured during query execution";
+    }
+
     res.status(statusCode)
     res.json({
         message: errorMessage,
