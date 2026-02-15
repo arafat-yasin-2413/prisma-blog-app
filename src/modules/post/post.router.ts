@@ -4,6 +4,7 @@ import { postController } from "./post.controller";
 
 const router = express.Router();
 
+router.get("/stats", auth(UserRole.ADMIN), postController.getStats);
 router.get("/my-posts", auth(UserRole.USER, UserRole.ADMIN), postController.getMyPosts)
 router.get("/:postId", postController.getPostById);
 router.get("/",postController.getAllPost);
