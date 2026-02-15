@@ -1,5 +1,6 @@
 import { CommentStatus, Post, PostStatus } from "../../generated/prisma/client";
 import { PostWhereInput } from "../../generated/prisma/models";
+
 import { prisma } from "../../lib/prisma";
 
 const getAllPost = async ({
@@ -276,7 +277,7 @@ const deletePost = async (postId: string, authorId: string, isAdmin: boolean) =>
 };
 
 const getStats = async () => {
-    console.log("get stats");
+    // console.log("get stats");
 
     // postCount, published post, draft posts, total comments, total views
     return await prisma.$transaction(async (tx) => {
