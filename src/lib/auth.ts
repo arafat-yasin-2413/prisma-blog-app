@@ -37,11 +37,11 @@ export const auth = betterAuth({
             },
         },
     },
-    // emailAndPassword: {
-    //     enabled: true,
-    //     autoSignIn: false,
-    //     requireEmailVerification: true, 
-    // },
+    emailAndPassword: {
+        enabled: true,
+        autoSignIn: false,
+        requireEmailVerification: true, 
+    },
     emailVerification: {
         sendOnSignUp: true,
         autoSignInAfterVerification: true,
